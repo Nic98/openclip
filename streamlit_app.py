@@ -1568,6 +1568,7 @@ if getattr(st.session_state, 'retry_error', False):
 if process_clicked:
     source_ready = bool(video_source) if input_type != INPUT_TYPE_UPLOAD else uploaded_file is not None
     if not source_ready:
+        uploads_root = Path(st.session_state.uploads_root)
         if input_type == INPUT_TYPE_UPLOAD:
             st.error('Please choose a video file to upload')
         elif input_type == INPUT_TYPE_SERVER_PATH:
@@ -1584,6 +1585,7 @@ if process_clicked:
         source_kind = SOURCE_KIND_URL
         upload_metadata = None
         job_source = video_source
+        uploads_root = Path(st.session_state.uploads_root)
         if input_type == INPUT_TYPE_UPLOAD:
             upload_metadata = stage_uploaded_file(uploaded_file, uploads_root, current_owner_session_id)
             job_source = upload_metadata['staged_path']
